@@ -6,5 +6,8 @@ using namespace std;
 int main(int argc, char** argv)
 {
     Method m;
-    m.move();
+    m.moveEuclidean();
+
+    cout << "\n\n\n\n\n" << endl;
+    m.moveManhattan();
 }

@@ -24,8 +24,10 @@ void Method::askForFile()
     cin >> fileName;
 }
 
-void Method::move()
+//Euclidean distance from N to the goal (Strategy 1)
+void Method::moveEuclidean()
 {
+    cost = 0;
     askForFile();
     file f(fileName);
     f.getFile();
@@ -41,51 +43,145 @@ void Method::move()
     {
         double temp_dis = 0.0;
         int position = -1;
+        euclideanDis = 100000000000.0;
         //check four firections
         //0:UP, 1:down, 2:LEFT, 3:RIGHT
-        bool possible[4];
-        for(bool x : possible)
-        {
-            x = false;//reset all the bool on possible to false
-        }
 
         if (g.init_x - 1 > -1 && (g.myGrid[g.init_x - 1][g.init_y] == '.' || g.myGrid[g.init_x - 1][g.init_y] == 'g'))
         {
             cout << "You can go up" << endl;
-            possible[0] = true;
             temp_dis = getEuclideanDistance(g.init_x - 1, g.init_y, g.final_x, g.final_y);
-            if(temp_dis < euclideanDis)
+            if(temp_dis <= euclideanDis)
+            {
                 euclideanDis = temp_dis;
                 position = 0;
+            }
         }
         if (g.init_x + 1 < row && (g.myGrid[g.init_x + 1][g.init_y] == '.' || g.myGrid[g.init_x + 1][g.init_y] == 'g'))
         {
             cout << "You can go down" << endl;
-            possible[1] = true;
-            temp_dis = getEuclideanDistance(g.init_x - 1, g.init_y, g.final_x, g.final_y);
-            if (temp_dis < euclideanDis)
+            temp_dis = getEuclideanDistance(g.init_x + 1, g.init_y, g.final_x, g.final_y);
+            if (temp_dis <= euclideanDis)
+            {
                 euclideanDis = temp_dis;
                 position = 1;
+            }
         }
         if (g.init_y - 1 > -1 && (g.myGrid[g.init_x][g.init_y - 1] == '.' || g.myGrid[g.init_x][g.init_y - 1] == 'g'))
         {
             cout << "You can go left" << endl;
-            possible[2] = true;
-            temp_dis = getEuclideanDistance(g.init_x - 1, g.init_y, g.final_x, g.final_y);
-            if (temp_dis < euclideanDis)
+            temp_dis = getEuclideanDistance(g.init_x, g.init_y - 1, g.final_x, g.final_y);
+            if (temp_dis <= euclideanDis)
+            {
                 euclideanDis = temp_dis;
                 position = 2;
+            }
         }
         if (g.init_y + 1 < row && (g.myGrid[g.init_x][g.init_y + 1] == '.' || g.myGrid[g.init_x][g.init_y + 1] == 'g'))
         {
             cout << "You can go right" << endl;
-            possible[3] = true;
-            temp_dis = getEuclideanDistance(g.init_x - 1, g.init_y, g.final_x, g.final_y);
-            if (temp_dis < euclideanDis)
+            temp_dis = getEuclideanDistance(g.init_x, g.init_y + 1, g.final_x, g.final_y);
+            if (temp_dis <= euclideanDis)
+            {
                 euclideanDis = temp_dis;
                 position = 3;
+            }
         }
         
+        if (position == 0)
+        {
+            g.myGrid[g.init_x][g.init_y] = 'O';
+            g.myGrid[g.init_x - 1][g.init_y] = 'i';
+            g.init_x = g.init_x - 1;
+        }
+        else if (position == 1)
+        {
+            g.myGrid[g.init_x][g.init_y] = 'O';
+            g.myGrid[g.init_x + 1][g.init_y] = 'i';
+            g.init_x = g.init_x + 1;
+        }
+        else if (position == 2)
+        {
+            g.myGrid[g.init_x][g.init_y] = 'O';
+            g.myGrid[g.init_x][g.init_y - 1] = 'i';
+            g.init_y = g.init_y - 1;
+        }
+        else if (position == 3)
+        {
+            g.myGrid[g.init_x][g.init_y] = 'O';
+            g.myGrid[g.init_x][g.init_y + 1] = 'i';
+            g.init_y = g.init_y + 1;
+        }
+
+        g.printGrid();
+        cost++;
+        cout << "Cost: " << cost << endl;
+    }
+}
+
+void Method::moveManhattan()
+{
+    cost = 0;
+    askForFile();
+    file f(fileName);
+    f.getFile();
+
+    row = f.getFileRow();
+    column = f.getFileColumn();
+
+    Grid g(row, column);
+    g.opGrid(fileName);
+
+    //while initial stage != final stage
+    while (g.init_x != g.final_x || g.init_y != g.final_y)
+    {
+        double temp_dis = 0.0;
+        int position = -1;
+        euclideanDis = 100000000000.0;
+        //check four firections
+        //0:UP, 1:down, 2:LEFT, 3:RIGHT
+
+        if (g.init_x - 1 > -1 && (g.myGrid[g.init_x - 1][g.init_y] == '.' || g.myGrid[g.init_x - 1][g.init_y] == 'g'))
+        {
+            cout << "You can go up" << endl;
+            temp_dis = getManhattanDistance(g.init_x - 1, g.init_y, g.final_x, g.final_y);
+            if (temp_dis <= euclideanDis)
+            {
+                euclideanDis = temp_dis;
+                position = 0;
+            }
+        }
+        if (g.init_x + 1 < row && (g.myGrid[g.init_x + 1][g.init_y] == '.' || g.myGrid[g.init_x + 1][g.init_y] == 'g'))
+        {
+            cout << "You can go down" << endl;
+            temp_dis = getManhattanDistance(g.init_x + 1, g.init_y, g.final_x, g.final_y);
+            if (temp_dis <= euclideanDis)
+            {
+                euclideanDis = temp_dis;
+                position = 1;
+            }
+        }
+        if (g.init_y - 1 > -1 && (g.myGrid[g.init_x][g.init_y - 1] == '.' || g.myGrid[g.init_x][g.init_y - 1] == 'g'))
+        {
+            cout << "You can go left" << endl;
+            temp_dis = getManhattanDistance(g.init_x, g.init_y - 1, g.final_x, g.final_y);
+            if (temp_dis <= euclideanDis)
+            {
+                euclideanDis = temp_dis;
+                position = 2;
+            }
+        }
+        if (g.init_y + 1 < row && (g.myGrid[g.init_x][g.init_y + 1] == '.' || g.myGrid[g.init_x][g.init_y + 1] == 'g'))
+        {
+            cout << "You can go right" << endl;
+            temp_dis = getManhattanDistance(g.init_x, g.init_y + 1, g.final_x, g.final_y);
+            if (temp_dis <= euclideanDis)
+            {
+                euclideanDis = temp_dis;
+                position = 3;
+            }
+        }
+
         if (position == 0)
         {
             g.myGrid[g.init_x][g.init_y] = 'O';
