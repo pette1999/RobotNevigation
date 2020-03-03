@@ -52,6 +52,40 @@ Grid::~Grid()
     delete myGrid;
 }
 
+void Grid::printGrid()
+{
+    cout << "myGrid" << endl;
+    for (int i = 0; i < fileRow; ++i)
+    {
+        if (to_string(i).length() == 1)
+        {
+            cout << i;
+            cout << "     ";
+        }
+        else if (to_string(i).length() == 2)
+        {
+            cout << i;
+            cout << "    ";
+        }
+        else if (to_string(i).length() == 3)
+        {
+            cout << i;
+            cout << "   ";
+        }
+        else if (to_string(i).length() == 4)
+        {
+            cout << i;
+            cout << "  ";
+        }
+        for (int j = 0; j < fileColumn; ++j)
+        {
+            cout << myGrid[i][j];
+            cout << "  ";
+        }
+        cout << "\n";
+    }
+}
+
 void Grid::opGrid(string filename)
 {
     if (!inFile)
@@ -95,36 +129,5 @@ void Grid::opGrid(string filename)
             }
         }
     }
-
-    cout << "myGrid" << endl;
-
-    for (int i = 0; i < fileRow; ++i)
-    {
-        if (to_string(i).length() == 1)
-        {
-            cout << i;
-            cout << "     ";
-        }
-        else if (to_string(i).length() == 2)
-        {
-            cout << i;
-            cout << "    ";
-        }
-        else if (to_string(i).length() == 3)
-        {
-            cout << i;
-            cout << "   ";
-        }
-        else if (to_string(i).length() == 4)
-        {
-            cout << i;
-            cout << "  ";
-        }
-        for (int j = 0; j < fileColumn; ++j)
-        {
-            cout << myGrid[i][j];
-            cout << "  ";
-        }
-        cout << "\n";
-    }
+    printGrid();
 }
