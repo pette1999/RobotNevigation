@@ -9,6 +9,7 @@ Method::Method()
     row = 0;
     column = 0;
     cost = 0;
+    node = 0;
     euclideanDis = 100000000000.0;
     manhattanDis = 100000000000.0;
 }
@@ -28,6 +29,7 @@ void Method::askForFile()
 void Method::moveEuclidean()
 {
     cost = 0;
+    node = 0;
     askForFile();
     file f(fileName);
     f.getFile();
@@ -52,6 +54,7 @@ void Method::moveEuclidean()
         if (g.init_x - 1 > -1 && (g.myGrid[g.init_x - 1][g.init_y] == '.' || g.myGrid[g.init_x - 1][g.init_y] == 'g'))
         {
             cout << "You can go up" << endl;
+            node++;
             temp_dis = getEuclideanDistance(g.init_x - 1, g.init_y, g.final_x, g.final_y);
             if(temp_dis <= euclideanDis)
             {
@@ -62,6 +65,7 @@ void Method::moveEuclidean()
         if (g.init_x + 1 < row && (g.myGrid[g.init_x + 1][g.init_y] == '.' || g.myGrid[g.init_x + 1][g.init_y] == 'g'))
         {
             cout << "You can go down" << endl;
+            node++;
             temp_dis = getEuclideanDistance(g.init_x + 1, g.init_y, g.final_x, g.final_y);
             if (temp_dis <= euclideanDis)
             {
@@ -72,6 +76,7 @@ void Method::moveEuclidean()
         if (g.init_y - 1 > -1 && (g.myGrid[g.init_x][g.init_y - 1] == '.' || g.myGrid[g.init_x][g.init_y - 1] == 'g'))
         {
             cout << "You can go left" << endl;
+            node++;
             temp_dis = getEuclideanDistance(g.init_x, g.init_y - 1, g.final_x, g.final_y);
             if (temp_dis <= euclideanDis)
             {
@@ -82,6 +87,7 @@ void Method::moveEuclidean()
         if (g.init_y + 1 < row && (g.myGrid[g.init_x][g.init_y + 1] == '.' || g.myGrid[g.init_x][g.init_y + 1] == 'g'))
         {
             cout << "You can go right" << endl;
+            node++;
             temp_dis = getEuclideanDistance(g.init_x, g.init_y + 1, g.final_x, g.final_y);
             if (temp_dis <= euclideanDis)
             {
@@ -118,6 +124,7 @@ void Method::moveEuclidean()
         g.printGrid();
         cost++;
         cout << "Cost: " << cost << endl;
+        cout << "Node: " << node << endl;
     }
 }
 
@@ -125,6 +132,7 @@ void Method::moveEuclidean()
 void Method::moveManhattan()
 {
     cost = 0;
+    node = 0;
     askForFile();
     file f(fileName);
     f.getFile();
@@ -149,6 +157,7 @@ void Method::moveManhattan()
         if (g.init_x - 1 > -1 && (g.myGrid[g.init_x - 1][g.init_y] == '.' || g.myGrid[g.init_x - 1][g.init_y] == 'g'))
         {
             cout << "You can go up" << endl;
+            node++;
             temp_dis = getManhattanDistance(g.init_x - 1, g.init_y, g.final_x, g.final_y);
             if (temp_dis <= manhattanDis)
             {
@@ -159,6 +168,7 @@ void Method::moveManhattan()
         if (g.init_x + 1 < row && (g.myGrid[g.init_x + 1][g.init_y] == '.' || g.myGrid[g.init_x + 1][g.init_y] == 'g'))
         {
             cout << "You can go down" << endl;
+            node++;
             temp_dis = getManhattanDistance(g.init_x + 1, g.init_y, g.final_x, g.final_y);
             if (temp_dis <= manhattanDis)
             {
@@ -169,6 +179,7 @@ void Method::moveManhattan()
         if (g.init_y - 1 > -1 && (g.myGrid[g.init_x][g.init_y - 1] == '.' || g.myGrid[g.init_x][g.init_y - 1] == 'g'))
         {
             cout << "You can go left" << endl;
+            node++;
             temp_dis = getManhattanDistance(g.init_x, g.init_y - 1, g.final_x, g.final_y);
             if (temp_dis <= manhattanDis)
             {
@@ -179,6 +190,7 @@ void Method::moveManhattan()
         if (g.init_y + 1 < row && (g.myGrid[g.init_x][g.init_y + 1] == '.' || g.myGrid[g.init_x][g.init_y + 1] == 'g'))
         {
             cout << "You can go right" << endl;
+            node++;
             temp_dis = getManhattanDistance(g.init_x, g.init_y + 1, g.final_x, g.final_y);
             if (temp_dis <= manhattanDis)
             {
@@ -215,6 +227,7 @@ void Method::moveManhattan()
         g.printGrid();
         cost++;
         cout << "Cost: " << cost << endl;
+        cout << "Node: " << node << endl;
     }
 }
 
@@ -222,6 +235,7 @@ void Method::moveManhattan()
 void Method::moveAstarEuclidean()
 {
     cost = 0;
+    node = 0;
     askForFile();
     file f(fileName);
     f.getFile();
@@ -246,6 +260,7 @@ void Method::moveAstarEuclidean()
         if (g.init_x - 1 > -1 && (g.myGrid[g.init_x - 1][g.init_y] == '.' || g.myGrid[g.init_x - 1][g.init_y] == 'g'))
         {
             cout << "You can go up" << endl;
+            node++;
             temp_dis = getEuclideanDistance(g.init_x - 1, g.init_y, g.final_x, g.final_y) + cost;
             if (temp_dis <= euclideanDis)
             {
@@ -256,6 +271,7 @@ void Method::moveAstarEuclidean()
         if (g.init_x + 1 < row && (g.myGrid[g.init_x + 1][g.init_y] == '.' || g.myGrid[g.init_x + 1][g.init_y] == 'g'))
         {
             cout << "You can go down" << endl;
+            node++;
             temp_dis = getEuclideanDistance(g.init_x + 1, g.init_y, g.final_x, g.final_y) + cost;
             if (temp_dis <= euclideanDis)
             {
@@ -266,6 +282,7 @@ void Method::moveAstarEuclidean()
         if (g.init_y - 1 > -1 && (g.myGrid[g.init_x][g.init_y - 1] == '.' || g.myGrid[g.init_x][g.init_y - 1] == 'g'))
         {
             cout << "You can go left" << endl;
+            node++;
             temp_dis = getEuclideanDistance(g.init_x, g.init_y - 1, g.final_x, g.final_y) + cost;
             if (temp_dis <= euclideanDis)
             {
@@ -276,6 +293,7 @@ void Method::moveAstarEuclidean()
         if (g.init_y + 1 < row && (g.myGrid[g.init_x][g.init_y + 1] == '.' || g.myGrid[g.init_x][g.init_y + 1] == 'g'))
         {
             cout << "You can go right" << endl;
+            node++;
             temp_dis = getEuclideanDistance(g.init_x, g.init_y + 1, g.final_x, g.final_y) + cost;
             if (temp_dis <= euclideanDis)
             {
@@ -312,12 +330,14 @@ void Method::moveAstarEuclidean()
         g.printGrid();
         cost++;
         cout << "Cost: " << cost << endl;
+        cout << "Node: " << node << endl;
     }
 }
 
 void Method::moveAstarManhattan()
 {
     cost = 0;
+    node = 0;
     askForFile();
     file f(fileName);
     f.getFile();
@@ -342,6 +362,7 @@ void Method::moveAstarManhattan()
         if (g.init_x - 1 > -1 && (g.myGrid[g.init_x - 1][g.init_y] == '.' || g.myGrid[g.init_x - 1][g.init_y] == 'g'))
         {
             cout << "You can go up" << endl;
+            node++;
             temp_dis = getManhattanDistance(g.init_x - 1, g.init_y, g.final_x, g.final_y) + cost;
             if (temp_dis <= manhattanDis)
             {
@@ -352,6 +373,7 @@ void Method::moveAstarManhattan()
         if (g.init_x + 1 < row && (g.myGrid[g.init_x + 1][g.init_y] == '.' || g.myGrid[g.init_x + 1][g.init_y] == 'g'))
         {
             cout << "You can go down" << endl;
+            node++;
             temp_dis = getManhattanDistance(g.init_x + 1, g.init_y, g.final_x, g.final_y) + cost;
             if (temp_dis <= manhattanDis)
             {
@@ -362,6 +384,7 @@ void Method::moveAstarManhattan()
         if (g.init_y - 1 > -1 && (g.myGrid[g.init_x][g.init_y - 1] == '.' || g.myGrid[g.init_x][g.init_y - 1] == 'g'))
         {
             cout << "You can go left" << endl;
+            node++;
             temp_dis = getManhattanDistance(g.init_x, g.init_y - 1, g.final_x, g.final_y) + cost;
             if (temp_dis <= manhattanDis)
             {
@@ -372,6 +395,7 @@ void Method::moveAstarManhattan()
         if (g.init_y + 1 < row && (g.myGrid[g.init_x][g.init_y + 1] == '.' || g.myGrid[g.init_x][g.init_y + 1] == 'g'))
         {
             cout << "You can go right" << endl;
+            node++;
             temp_dis = getManhattanDistance(g.init_x, g.init_y + 1, g.final_x, g.final_y) + cost;
             if (temp_dis <= manhattanDis)
             {
@@ -408,6 +432,7 @@ void Method::moveAstarManhattan()
         g.printGrid();
         cost++;
         cout << "Cost: " << cost << endl;
+        cout << "Node: " << node << endl;
     }
 }
 

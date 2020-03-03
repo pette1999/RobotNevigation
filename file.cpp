@@ -26,7 +26,7 @@ file::file(string filename)
 
 void file::getFile() //input file
 {
-    //ifstream inFile(fileName);
+    ifstream inFile(fileName);
     if (!inFile)
     {
         cout << "Could not find file." << endl;

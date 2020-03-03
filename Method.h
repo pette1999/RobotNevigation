@@ -13,6 +13,7 @@ public:
     int row;
     int column;
     int cost;
+    int node;
     double euclideanDis;
     double manhattanDis;
     file f;
