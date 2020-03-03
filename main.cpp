@@ -10,4 +10,10 @@ int main(int argc, char** argv)
 
     cout << "\n\n\n\n\n" << endl;
     m.moveManhattan();
+
+    cout << "\n\n\n\n\n" << endl;
+    m.moveAstarEuclidean();
+
+    cout << "\n\n\n\n\n" << endl;
+    m.moveAstarManhattan();
 }

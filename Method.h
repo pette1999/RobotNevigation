@@ -20,6 +20,8 @@ public:
 
     void moveEuclidean();
     void moveManhattan();
+    void moveAstarEuclidean();
+    void moveAstarManhattan();
     void askForFile();
     double getEuclideanDistance(int init_x, int init_y, int final_x, int final_y);
     double getManhattanDistance(int init_x, int init_y, int final_x, int final_y);
