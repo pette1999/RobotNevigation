@@ -1,5 +1,5 @@
 #include <iostream>
-#include "file.h"
+#include "Grid.h"
 
 using namespace std;
 
@@ -9,7 +9,17 @@ public:
     Method();
     ~Method();
 
+    string fileName;
+    int row;
+    int column;
+    int cost;
+    double euclideanDis;
+    double manhattanDis;
+    file f;
+    Grid g;
+
     void move();
+    void askForFile();
     double getEuclideanDistance(int init_x, int init_y, int final_x, int final_y);
     double getManhattanDistance(int init_x, int init_y, int final_x, int final_y);
 };

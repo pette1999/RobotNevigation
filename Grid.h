@@ -11,7 +11,7 @@ public:
     Grid(int row, int column);
     ~Grid();
 
-    void printGrid(string filename);
+    void opGrid(string filename);
     void printGrid();
 
     int fileRow;

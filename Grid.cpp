@@ -52,7 +52,7 @@ Grid::~Grid()
     delete myGrid;
 }
 
-void Grid::printGrid(string filename)
+void Grid::opGrid(string filename)
 {
     if (!inFile)
     {
