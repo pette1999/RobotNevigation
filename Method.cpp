@@ -334,6 +334,7 @@ void Method::moveAstarEuclidean()
     }
 }
 
+//A* (Strategy 4)
 void Method::moveAstarManhattan()
 {
     cost = 0;
